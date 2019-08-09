@@ -30,13 +30,11 @@ app.use((req, res, next) => {
     return next();
   });
   
-app.use(express.static(path.join(__dirname, "client", "build")))
 
 app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/image', ImageRouter);
 
@@ -55,6 +53,8 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.use(express.static(path.join(__dirname, "client", "build")));
 
 const port = process.env.PORT || 5000
 
